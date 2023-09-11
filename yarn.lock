@@ -124,10 +124,10 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@smallwei/avue@^3.2.15":
-  version "3.2.15"
-  resolved "https://registry.npmjs.org/@smallwei/avue/-/avue-3.2.15.tgz#1f17e703dfd9b698d12de482a7177ea7baa20d2f"
-  integrity sha512-x6zDmCmvG1ZK/pbY2ZZv57bbJSlygcrSxP3+aaRnZuQ1UAxNkFrSUBuxgJcJGbV2n7YI1HuIiTD5R2PXs2DF0A==
+"@smallwei/avue@^3.2.19":
+  version "3.2.20"
+  resolved "https://registry.npmmirror.com/@smallwei/avue/-/avue-3.2.20.tgz#03190587a17df2f2f6a0939c1fe5f352ca7325cc"
+  integrity sha512-ddksJ9yiW6C+Bv8SNpAtXgSn150o3TcNNd7+BhdqiS6DXJbiwhEHkXsGwmuwaAGmPm1UoGuRDBlGxyBSBr/zxQ==
   dependencies:
     "@element-plus/icons-vue" "^2.0.6"
     countup.js "^1.9.3"
@@ -443,10 +443,10 @@ async-validator@^4.2.5:
   resolved "https://registry.npmjs.org/async-validator/-/async-validator-4.2.5.tgz#c96ea3332a521699d0afaaceed510a54656c6339"
   integrity sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==
 
-avue-plugin-ueditor@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/avue-plugin-ueditor/-/avue-plugin-ueditor-1.0.1.tgz#ae32482411d647689d43ee6f9db287f01874d67a"
-  integrity sha512-LM3qSKa0dZi3rOzTaGSPBBTdJcMszxIdz81i7FFk6ixXTEJGuHhZDs6Fu8bu0ZXjXK0sDknCgOyiopBP22QGeg==
+avue-plugin-ueditor@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmmirror.com/avue-plugin-ueditor/-/avue-plugin-ueditor-1.0.3.tgz#f3bf9cb66f0d969b9ff526ef2af21398eb1174ca"
+  integrity sha512-hly5hcS5g9d9uoSY5m6h7Kf/o8wHXKQO9LZICbbtmiEX6xYlWcH0mqL0j5rKdbUVNNcjzUThBGaDVWWzXqqxBQ==
   dependencies:
     "@wangeditor/editor" "^5.1.23"
     "@wangeditor/editor-for-vue" "^5.1.12"

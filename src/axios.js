@@ -17,6 +17,7 @@ import 'nprogress/nprogress.css' // progress bar style
 import { Base64 } from 'js-base64';
 import { isURL } from 'utils/validate';
 import { baseUrl } from '@/config/env';
+import crypto from '@/utils/crypto';
 
 axios.defaults.timeout = 10000;
 //返回其他状态吗
@@ -37,10 +38,15 @@ axios.interceptors.request.use(config => {
     config.url = baseUrl + config.url;
   }
   const meta = (config.meta || {});
-  const isToken = meta.isToken === false;
   config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
-  if (getToken() && !isToken) {
-    config.headers[website.Authorization] = 'bearer ' + getToken()
+  //headers传递token是否加密
+  const isToken = meta.isToken === false;
+  const cryptoToken = config.cryptoToken === true;
+  const token = getToken();
+  if (token && !isToken) {
+    config.headers[website.Authorization] = cryptoToken
+      ? 'crypto ' + crypto.encrypt(token)
+      : 'bearer ' + token;
   }
   //headers中配置serialize为true开启序列化
   if (config.method === 'post' && meta.isSerialize === true) {
