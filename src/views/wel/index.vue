@@ -157,7 +157,7 @@
             <el-collapse v-model="logActiveNames"
                          @change="handleChange">
               <el-collapse-item title="3.7.0发布 新增Token加密传输功能"
-                                name="33">
+                                name="34">
                 <div>1.升级 SpringCloud 至 2021.0.8</div>
                 <div>2.升级 SpringBoot 至 2.7.15</div>
                 <div>3.升级 Mybatis-Plus 至 3.5.3.2</div>
@@ -568,7 +568,7 @@ export default {
   data() {
     return {
       activeNames: ['1', '2', '3', '5'],
-      logActiveNames: ['33']
+      logActiveNames: ['34']
     };
   },
   computed: {
