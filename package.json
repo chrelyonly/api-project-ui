@@ -1,6 +1,6 @@
 {
   "name": "saber-admin",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "scripts": {
     "dev": "vite --host",
     "prod": "vite --mode production",
