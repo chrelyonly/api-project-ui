@@ -78,8 +78,8 @@ export default class func {
    * @param arr
    * @returns {string}
    */
-  static join (arr) {
-    return arr ? arr.join(',') : '';
+  static join(arr) {
+    return Array.isArray(arr) ? arr.join(',') : arr;
   }
 
   /**

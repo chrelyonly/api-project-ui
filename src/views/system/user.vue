@@ -113,7 +113,8 @@ import { getPostList } from "@/api/system/post";
 import { mapGetters } from "vuex";
 import website from '@/config/website';
 import { getToken } from '@/utils/auth';
-import { baseUrl } from '@/config/env'
+import { baseUrl } from '@/config/env';
+import func from "@/utils/func";
 export default {
   data () {
     const validatePass = (rule, value, callback) => {
@@ -413,9 +414,9 @@ export default {
       });
     },
     rowSave (row, done, loading) {
-      row.deptId = row.deptId.join(",");
-      row.roleId = row.roleId.join(",");
-      row.postId = row.postId.join(",");
+      row.deptId = func.join(row.deptId);
+      row.roleId = func.join(row.roleId);
+      row.postId = func.join(row.postId);
       add(row).then(() => {
         done();
         this.onLoad(this.page);
@@ -429,9 +430,9 @@ export default {
       });
     },
     rowUpdate (row, index, done, loading) {
-      row.deptId = row.deptId.join(",");
-      row.roleId = row.roleId.join(",");
-      row.postId = row.postId.join(",");
+      row.deptId = func.join(row.deptId);
+      row.roleId = func.join(row.roleId);
+      row.postId = func.join(row.postId);
       update(row).then(() => {
         done();
         this.onLoad(this.page);
