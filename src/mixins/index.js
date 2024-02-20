@@ -38,7 +38,7 @@ export default {
               this.refreshLock = false;
             });
         }
-      }, 10000);
+      }, 1000);
     },
   }
 }
