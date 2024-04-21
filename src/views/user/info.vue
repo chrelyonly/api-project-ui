@@ -10,6 +10,7 @@
 <script>
 import { getUserInfo, update, updatePassword } from "@/api/system/user";
 import func from "@/utils/func";
+import {validatenull} from "@/utils/validate";
 
 
 export default {
@@ -148,10 +149,13 @@ export default {
         });
       }
     },
-    handleTabClick (tabs) {
-      this.index = func.toInt(tabs.index);
+    handleTabClick(tabs) {
+      if (validatenull(tabs.index)) {
+        return;
+      }
+      this.index = func.toInt(tabs.index, 0);
       this.handleWitch();
-    }
+    },
   }
 };
 </script>

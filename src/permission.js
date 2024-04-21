@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
           store.commit('ADD_TAG', {
             name: query.name || to.name,
             path: to.path,
-            fullPath: to.fullPath,
+            fullPath: to.path,
             params: to.params,
             query: to.query,
             meta: meta
