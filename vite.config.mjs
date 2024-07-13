@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from 'vite'
-const { resolve } = require('path')
+import { resolve } from 'path'
 import createVitePlugins from './vite/plugins'
 // https://vitejs.dev/config/
 export default ({ mode, command }) => {

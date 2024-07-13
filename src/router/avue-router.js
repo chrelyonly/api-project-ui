@@ -47,7 +47,7 @@ RouterPlugin.install = function (option = {}) {
         const oMenu = aMenu[i];
         let path = oMenu[propsDefault.path],
           component = oMenu.component,
-          name = oMenu[propsDefault.label],
+          name = oMenu[propsDefault.label] + ',' + oMenu.id,
           icon = oMenu[propsDefault.icon],
           children = oMenu[propsDefault.children],
           query = oMenu[propsDefault.query],
