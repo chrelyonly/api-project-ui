@@ -1,6 +1,6 @@
 {
   "name": "saber-admin",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "scripts": {
     "dev": "vite --host",
     "prod": "vite --mode production",
@@ -15,6 +15,7 @@
     "avue-plugin-ueditor": "^1.0.3",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.1",
+    "sm-crypto": "^0.3.13",
     "dayjs": "^1.10.6",
     "element-plus": "^2.7.3",
     "js-base64": "^3.7.4",

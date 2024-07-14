@@ -4,6 +4,7 @@ import { deepClone } from '@/utils/util'
 import { loginByUsername, loginBySocial, getUserInfo, getMenu, getTopMenu, logout, refreshToken, getButtons } from '@/api/user'
 import { formatPath } from '@/router/avue-router'
 import { ElMessage } from 'element-plus'
+import { encrypt } from '@/utils/sm2'
 
 const user = {
   state: {
@@ -20,7 +21,7 @@ const user = {
     //根据用户名登录
     LoginByUsername ({ commit }, userInfo = {}) {
       return new Promise((resolve, reject) => {
-        loginByUsername(userInfo.tenantId, userInfo.username, userInfo.password, userInfo.type, userInfo.key, userInfo.code).then(res => {
+        loginByUsername(userInfo.tenantId, userInfo.username, encrypt(userInfo.password), userInfo.type, userInfo.key, userInfo.code).then(res => {
           const data = res.data;
           if (data.success) {
             commit('SET_TOKEN', data.data.accessToken);

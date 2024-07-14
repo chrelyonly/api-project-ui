@@ -42,6 +42,11 @@ export default {
     href: 'path',
     meta: 'meta'
   },
+  //auth配置
+  auth: {
+    // 使用后端工程 @org.springblade.test.Sm2KeyGenerator 获取
+    publicKey: '请配置国密sm2公钥',
+  },
   // 授权地址
   authUrl: 'http://localhost/blade-auth/oauth/render',
   // 报表设计器地址(cloud端口为8108,boot端口为80)

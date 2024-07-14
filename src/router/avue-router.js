@@ -36,7 +36,7 @@ RouterPlugin.install = function (option = {}) {
         const hasKey = i18n.te('route.' + key)
         if (hasKey) return i18n.t('route.' + key)
       }
-      return title
+      return title.split(',')[0];
     },
     //动态路由
     formatRoutes: function (aMenu = [], first) {

@@ -2,7 +2,7 @@
   <basic-container>
     <third-register></third-register>
     <p style="text-align: center;">
-      <img src="https://img.shields.io/badge/Release-V4.0.0-green.svg"
+      <img src="https://img.shields.io/badge/Release-V4.1.0-green.svg"
            alt="Downloads"/>
       <img src="https://img.shields.io/badge/JDK-17+-green.svg"
            alt="Build Status"/>
@@ -156,6 +156,20 @@
           <basic-container>
             <el-collapse v-model="logActiveNames"
                          @change="handleChange">
+              <el-collapse-item title="4.1.0发布 登录认证升级为国密算法，数据库password字段内容无需变动"
+                                name="37">
+                <div>1.[升级]SpringBoot 至 3.2.7</div>
+                <div>2.[升级]SpringCloud 至 2023.0.2</div>
+                <div>3.[升级]AlibabaCloud 至 2023.0.1.0</div>
+                <div>4.[升级]Nacos 至 2.3.2</div>
+                <div>5.[升级]MybatisPlus 至 3.5.7</div>
+                <div>6.[新增]登录认证升级为国密sm2算法，数据库字段无需变动</div>
+                <div>7.[新增]oss内网上传后转换返回外网地址</div>
+                <div>8.[新增]saber2与saber3支持nodejs18编译</div>
+                <div>9.[优化]完善swagger与springdoc的配置</div>
+                <div>10.[优化]重构StringUtil的format方法</div>
+                <div>11.[优化]saveOrUpdate方法增加业务字段更新逻辑</div>
+              </el-collapse-item>
               <el-collapse-item title="4.0.0发布 升级 SpringBoot3 SpringCloud2023 JDK17"
                                 name="36">
                 <div>1.[升级]JDK 至 Java17</div>
@@ -603,7 +617,7 @@ export default {
   data() {
     return {
       activeNames: ['1', '2', '3', '5'],
-      logActiveNames: ['36']
+      logActiveNames: ['37']
     };
   },
   computed: {
