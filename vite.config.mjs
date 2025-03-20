@@ -11,7 +11,7 @@ export default ({ mode, command }) => {
       port: 2888,
       proxy: {
         '/api': {
-          target: 'http://localhost',
+          target: 'http://127.0.0.1:8077',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }
