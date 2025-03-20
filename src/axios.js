@@ -19,7 +19,7 @@ import { isURL } from 'utils/validate';
 import { baseUrl } from '@/config/env';
 import crypto from '@/utils/crypto';
 
-axios.defaults.timeout = 10000;
+axios.defaults.timeout = 30000;
 //返回其他状态吗
 axios.defaults.validateStatus = function (status) {
   return status >= 200 && status <= 500; // 默认的
