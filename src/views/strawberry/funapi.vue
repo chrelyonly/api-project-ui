@@ -20,7 +20,6 @@
                @on-load="onLoad">
       <template #menu-left>
         <el-button type="danger"
-                   size="small"
                    icon="el-icon-delete"
                    plain
                    v-if="permission.funapi_delete"
@@ -60,67 +59,36 @@
           selection: true,
           column: [
             {
-              label: "备注",
-              prop: "remark",
-              rules: [{
-                required: true,
-                message: "请输入备注",
-                trigger: "blur"
-              }]
-            },
-            {
               label: "标题",
               prop: "name",
-              rules: [{
-                required: true,
-                message: "请输入标题",
-                trigger: "blur"
-              }]
+            },
+            {
+              label: "内容",
+              prop: "content",
             },
             {
               label: "接口地址",
               prop: "apiUrl",
-              rules: [{
-                required: true,
-                message: "请输入接口地址",
-                trigger: "blur"
-              }]
             },
             {
               label: "请求类型",
               prop: "requestType",
-              rules: [{
-                required: true,
-                message: "请输入请求类型",
-                trigger: "blur"
-              }]
             },
             {
               label: "请求参数",
               prop: "requestParams",
-              rules: [{
-                required: true,
-                message: "请输入请求参数",
-                trigger: "blur"
-              }]
             },
             {
               label: "响应类型",
               prop: "responseType",
-              rules: [{
-                required: true,
-                message: "请输入响应类型",
-                trigger: "blur"
-              }]
             },
             {
               label: "测试案例",
               prop: "textContent",
-              rules: [{
-                required: true,
-                message: "请输入测试案例",
-                trigger: "blur"
-              }]
+            },
+            {
+              label: "备注",
+              prop: "remark",
             },
           ]
         },
