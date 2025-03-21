@@ -188,8 +188,16 @@
               display: true,
             },
             {
+              label: "响应参数",
+              prop: "responseBody",
+              span: 24,
+              hide: true,
+              display: false,
+            },
+            {
               label: "测试案例",
               prop: "textContent",
+              placeholder: "调用后返回",
             },
             {
               label: "备注",
@@ -296,17 +304,22 @@
       },
       beforeOpen(done, type) {
         if (["edit", "view"].includes(type)) {
-          getDetail(this.form.id).then(res => {
-            this.form = res.data.data;
-            //   判断动态列是否是数组
-            if(this.form.requestParams && this.form.requestParams.length > 0){
-              this.form.requestParams = JSON.parse(this.form.requestParams)
-              this.form.requestParamsTemp = JSON.parse(this.form.requestParams)
-            }else {
-              this.form.requestParams = []
-              this.form.requestParamsTemp = []
-            }
-          });
+          if (type === "view"){
+            this.requestParamsOption.header = false
+            this.requestParamsOption.menu = false
+          }else {
+            this.requestParamsOption.header = true
+            this.requestParamsOption.menu = true
+          }
+          //   判断动态列是否是数组
+          if(this.form.requestParams && this.form.requestParams.length > 0){
+            let requestParams = JSON.parse(this.form.requestParams)
+            this.form.requestParams = requestParams
+            this.form.requestParamsTemp = requestParams
+          }else {
+            this.form.requestParams = []
+            this.form.requestParamsTemp = []
+          }
         }
         done();
       },
