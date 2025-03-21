@@ -26,6 +26,14 @@
                    @click="handleDelete">删 除
         </el-button>
       </template>
+      <template #requestParamsTemp-form="scope">
+        <avue-crud ref="crud"
+                   :option="requestParamsOption"
+                   :data="scope.value"
+                   @row-update="requestParamsAddUpdate"
+                   @row-save="requestParamsRowSave">
+        </avue-crud>
+      </template>
     </avue-crud>
   </basic-container>
 </template>
@@ -37,7 +45,74 @@
   export default {
     data() {
       return {
-        form: {},
+        // 表单的动态列配置的
+        requestParamsOption: {
+          addBtn: false,
+          addRowBtn: true,
+          cellBtn: true,
+          menuWidth: 250,
+          delBtn: false,
+          column: [
+            {
+              label: '字段名称',
+              prop: 'name',
+              cell: true,
+              rules: [
+                {
+                  required: true,
+                  message: "必须填写展示标题",
+                  trigger: "blur",
+                },
+              ],
+            },
+            {
+              label: '类型',
+              prop: 'type',
+              type: 'select',
+              // width: 150,
+              dicData: [
+                {
+                  label: "string",
+                  value: "string"
+                },
+              ],
+              rules: [
+                {
+                  required: true,
+                  message: "必须选择类型",
+                  trigger: "blur",
+                },
+              ],
+              cell: true
+            },
+            {
+              label: '描述',
+              prop: 'des',
+              cell: true,
+            },
+            {
+              label: '是否必填',
+              prop: 'required',
+              type: 'switch',
+              value: 1,
+              dicData: [
+                {
+                  label: '可选',
+                  value: 2
+                },
+                {
+                  label: '必填',
+                  value: 1
+                },
+              ],
+              cell: true
+            },
+          ]
+        },
+        form: {
+          requestParams: [],
+          requestParamsTemp: [],
+        },
         query: {},
         search: {},
         loading: true,
@@ -73,14 +148,44 @@
             {
               label: "请求类型",
               prop: "requestType",
-            },
-            {
-              label: "请求参数",
-              prop: "requestParams",
+              type: "select",
+              dicData: [
+                { label: "GET", value: "GET" },
+                { label: "POST", value: "POST" },
+                { label: "PUT", value: "PUT" },
+                { label: "DELETE", value: "DELETE" },
+                { label: "PATCH", value: "PATCH" },
+                { label: "HEAD", value: "HEAD" },
+                { label: "OPTIONS", value: "OPTIONS" }
+              ]
             },
             {
               label: "响应类型",
               prop: "responseType",
+              type: "select",
+              dicData: [
+                { label: "application/json", value: "application/json" },
+                { label: "text/html", value: "text/html" },
+                { label: "application/xml", value: "application/xml" },
+                { label: "text/plain", value: "text/plain" },
+                { label: "application/x-www-form-urlencoded", value: "application/x-www-form-urlencoded" },
+                { label: "multipart/form-data", value: "multipart/form-data" },
+                { label: "application/octet-stream", value: "application/octet-stream" }
+              ]
+            },
+            {
+              label: "请求参数",
+              prop: "requestParams",
+              span: 24,
+              hide: true,
+              display: false,
+            },
+            {
+              label: "请求参数",
+              prop: "requestParamsTemp",
+              span: 24,
+              hide: true,
+              display: true,
             },
             {
               label: "测试案例",
@@ -114,7 +219,16 @@
       }
     },
     methods: {
+      // 行新增事件
+      requestParamsRowSave (form, done) {
+        done();
+      },
+      // 行编辑事件
+      requestParamsAddUpdate (form, index, done, loading){
+        done();
+      },
       rowSave(row, done, loading) {
+        row.requestParams = JSON.stringify(row.requestParamsTemp);
         add(row).then(() => {
           done();
           this.onLoad(this.page);
@@ -128,6 +242,7 @@
         });
       },
       rowUpdate(row, index, done, loading) {
+        row.requestParams = JSON.stringify(row.requestParamsTemp);
         update(row).then(() => {
           done();
           this.onLoad(this.page);
@@ -183,6 +298,14 @@
         if (["edit", "view"].includes(type)) {
           getDetail(this.form.id).then(res => {
             this.form = res.data.data;
+            //   判断动态列是否是数组
+            if(this.form.requestParams && this.form.requestParams.length > 0){
+              this.form.requestParams = JSON.parse(this.form.requestParams)
+              this.form.requestParamsTemp = JSON.parse(this.form.requestParams)
+            }else {
+              this.form.requestParams = []
+              this.form.requestParamsTemp = []
+            }
           });
         }
         done();
