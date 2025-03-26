@@ -88,6 +88,7 @@
             {
               label: "排序",
               prop: "sort",
+              type: "number",
               rules: [{
                 required: true,
                 message: "请输入排序",
@@ -106,11 +107,6 @@
             {
               label: "备注",
               prop: "remark",
-              rules: [{
-                required: true,
-                message: "请输入备注",
-                trigger: "blur"
-              }]
             },
           ]
         },
