@@ -56,6 +56,7 @@
           border: true,
           index: true,
           viewBtn: true,
+          align: "center",
           selection: true,
           column: [
             {
@@ -70,6 +71,9 @@
             {
               label: "头像地址",
               prop: "avatar",
+              type: "img",
+              alone: true,
+              fileType: "jpg,png,jpeg",
               rules: [{
                 required: true,
                 message: "请输入头像地址",
