@@ -2,7 +2,7 @@
   "name": "api-admin",
   "version": "4.5.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "serve": "vite preview --host"
   },
