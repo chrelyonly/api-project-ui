@@ -46,3 +46,5 @@ app.use(Avue, {
 })
 app.use(avueUeditor, { axios })
 app.mount('#app')
+import {http} from '@/api/https';
+window.$https = http;

@@ -18,101 +18,35 @@
                @current-change="currentChange"
                @size-change="sizeChange"
                @on-load="onLoad">
-      <template #menu-left>
+      <template #menu="scope">
         <el-button type="danger"
+                   size="small"
                    icon="el-icon-delete"
                    plain
-                   v-if="permission.funapi_delete"
-                   @click="handleDelete">删 除
+                   @click="handleClick(scope)">手动调用
         </el-button>
       </template>
-      <template #requestParamsTemp-form="scope">
-        <avue-crud ref="crud"
-                   :option="requestParamsOption"
-                   :data="scope.value"
-                   @row-update="requestParamsAddUpdate"
-                   @row-save="requestParamsRowSave">
-        </avue-crud>
+      <template #menu-left>
+        <el-button type="danger"
+                   size="small"
+                   icon="el-icon-delete"
+                   plain
+                   v-if="permission.chrelyonlytask_delete"
+                   @click="handleDelete">删 除
+        </el-button>
       </template>
     </avue-crud>
   </basic-container>
 </template>
 
 <script>
-  import {getList, getDetail, add, update, remove} from "@/api/strawberry/funapi";
+  import {getList, getDetail, add, update, remove} from "@/api/strawberry/chrelyonlytask";
   import {mapGetters} from "vuex";
 
   export default {
     data() {
       return {
-        // 表单的动态列配置的
-        requestParamsOption: {
-          addBtn: false,
-          addRowBtn: true,
-          cellBtn: true,
-          menuWidth: 250,
-          delBtn: false,
-          column: [
-            {
-              label: '字段名称',
-              prop: 'name',
-              cell: true,
-              rules: [
-                {
-                  required: true,
-                  message: "必须填写展示标题",
-                  trigger: "blur",
-                },
-              ],
-            },
-            {
-              label: '类型',
-              prop: 'type',
-              type: 'select',
-              // width: 150,
-              dicData: [
-                {
-                  label: "string",
-                  value: "string"
-                },
-              ],
-              rules: [
-                {
-                  required: true,
-                  message: "必须选择类型",
-                  trigger: "blur",
-                },
-              ],
-              cell: true
-            },
-            {
-              label: '描述',
-              prop: 'des',
-              cell: true,
-            },
-            {
-              label: '是否必填',
-              prop: 'required',
-              type: 'switch',
-              value: 1,
-              dicData: [
-                {
-                  label: '可选',
-                  value: 2
-                },
-                {
-                  label: '必填',
-                  value: 1
-                },
-              ],
-              cell: true
-            },
-          ]
-        },
-        form: {
-          requestParams: [],
-          requestParamsTemp: [],
-        },
+        form: {},
         query: {},
         search: {},
         loading: true,
@@ -131,23 +65,34 @@
           border: true,
           index: true,
           viewBtn: true,
+          labelWidth: 150,
           selection: true,
           column: [
             {
               label: "标题",
               prop: "name",
+              rules: [{
+                required: true,
+                message: "请输入标题",
+                trigger: "blur"
+              }]
             },
             {
-              label: "内容",
-              prop: "content",
+              label: "请求地址",
+              prop: "requestUrl",
+              rules: [{
+                required: true,
+                message: "请输入请求地址",
+                trigger: "blur"
+              }]
             },
             {
-              label: "接口地址",
-              prop: "apiUrl",
+              label: "请求参数(json)",
+              prop: "requestParams",
             },
             {
-              label: "请求类型",
-              prop: "requestType",
+              label: "请求方式",
+              prop: "requestMethod",
               type: "select",
               dicData: [
                 { label: "GET", value: "GET" },
@@ -165,8 +110,8 @@
               }]
             },
             {
-              label: "响应类型",
-              prop: "responseType",
+              label: "请求类型",
+              prop: "requestType",
               type: "select",
               dicData: [
                 { label: "application/json", value: "application/json" },
@@ -176,33 +121,22 @@
                 { label: "application/x-www-form-urlencoded", value: "application/x-www-form-urlencoded" },
                 { label: "multipart/form-data", value: "multipart/form-data" },
                 { label: "application/octet-stream", value: "application/octet-stream" }
-              ]
+              ],
+              rules: [{
+                required: true,
+                message: "请选择",
+                trigger: "change"
+              }]
             },
             {
-              label: "请求参数",
-              prop: "requestParams",
-              span: 24,
-              hide: true,
+              label: "请求状态码",
+              prop: "requestStatus",
               display: false,
             },
             {
-              label: "请求参数",
-              prop: "requestParamsTemp",
-              span: 24,
-              hide: true,
-              display: true,
-            },
-            {
-              label: "响应参数",
-              prop: "responseBody",
-              span: 24,
-              hide: true,
+              label: "响应内容",
+              prop: "responseContent",
               display: false,
-            },
-            {
-              label: "测试案例",
-              prop: "textContent",
-              placeholder: "调用后返回",
             },
             {
               label: "备注",
@@ -217,10 +151,10 @@
       ...mapGetters(["permission"]),
       permissionList() {
         return {
-          addBtn: this.validData(this.permission.funapi_add, false),
-          viewBtn: this.validData(this.permission.funapi_view, false),
-          delBtn: this.validData(this.permission.funapi_delete, false),
-          editBtn: this.validData(this.permission.funapi_edit, false)
+          addBtn: this.validData(this.permission.chrelyonlytask_add, false),
+          viewBtn: this.validData(this.permission.chrelyonlytask_view, false),
+          delBtn: this.validData(this.permission.chrelyonlytask_delete, false),
+          editBtn: this.validData(this.permission.chrelyonlytask_edit, false)
         };
       },
       ids() {
@@ -232,16 +166,7 @@
       }
     },
     methods: {
-      // 行新增事件
-      requestParamsRowSave (form, done) {
-        done();
-      },
-      // 行编辑事件
-      requestParamsAddUpdate (form, index, done, loading){
-        done();
-      },
       rowSave(row, done, loading) {
-        row.requestParams = JSON.stringify(row.requestParamsTemp);
         add(row).then(() => {
           done();
           this.onLoad(this.page);
@@ -255,7 +180,6 @@
         });
       },
       rowUpdate(row, index, done, loading) {
-        row.requestParams = JSON.stringify(row.requestParamsTemp);
         update(row).then(() => {
           done();
           this.onLoad(this.page);
@@ -285,7 +209,16 @@
             });
           });
       },
-      handleDelete() {
+      // 手动点击一次
+      handleClick(item){
+        let params = {
+          id: item.id
+        }
+        $https("/wechat-bot/my-task/send-good-morning","get",params,1,{}).then( res => {
+
+        })
+      },
+      Delete() {
         if (this.selectionList.length === 0) {
           this.$message.warning("请选择至少一条数据");
           return;
@@ -309,22 +242,9 @@
       },
       beforeOpen(done, type) {
         if (["edit", "view"].includes(type)) {
-          if (type === "view"){
-            this.requestParamsOption.header = false
-            this.requestParamsOption.menu = false
-          }else {
-            this.requestParamsOption.header = true
-            this.requestParamsOption.menu = true
-          }
-          //   判断动态列是否是数组
-          if(this.form.requestParams && this.form.requestParams.length > 0){
-            let requestParams = JSON.parse(this.form.requestParams)
-            this.form.requestParams = requestParams
-            this.form.requestParamsTemp = requestParams
-          }else {
-            this.form.requestParams = []
-            this.form.requestParamsTemp = []
-          }
+          getDetail(this.form.id).then(res => {
+            this.form = res.data.data;
+          });
         }
         done();
       },
