@@ -212,10 +212,13 @@
       // 手动点击一次
       handleClick(item){
         let params = {
-          id: item.id
+          id: item.row.id
         }
-        $https("/wechat-bot/my-task/send-good-morning","get",params,1,{}).then( res => {
-
+        $https("/wechat-bot/my-task/send","get",params,1,{}).then( res => {
+          this.$message({
+            type: "success",
+            message: "操作成功!"
+          });
         })
       },
       Delete() {
